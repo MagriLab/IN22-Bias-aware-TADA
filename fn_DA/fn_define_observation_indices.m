@@ -1,0 +1,40 @@
+function [obs_idx, Filter] = fn_define_observation_indices(Filter, ESN)
+    % ------------------------------------------------------------------- %
+    % ------------------------------------------------------------------- % 
+    % Select when to start DA (or when to stop washout)
+    t_start_DA      =   Filter.t_start + ESN.N_washout * ESN.dt; 
+    % Delay start time of parameter estimation only (i.e. drop SE)
+    t_start_PE      =   t_start_DA + 0.025; 
+    
+    % ------------------------------------------------------------------- %
+    % Select assimilation frequencies
+    kmeas     =   Filter.k_meas; 
+    % ------------------------------------------------------------------- %
+    % Translate into indices
+    t_init_i   	    =   Filter.t_min  / Filter.dt_mic + 1; 
+    t_start_wash_i  =   Filter.t_start / Filter.dt_mic + 1;
+    t_start_SE_i	=   round(t_start_DA/ Filter.dt_mic) + 1;
+    t_start_PE_i	=   round(t_start_PE/ Filter.dt_mic) + 1;
+    t_stop_i        =   Filter.t_stop / Filter.dt_mic + 1;
+    % ------------------------------------------------------------------- %
+    if Filter.E_Bias
+        part_0  =   [t_init_i,t_start_wash_i];              % No DA/ESN
+        part_1	=   t_start_wash_i+1:1:t_start_SE_i;        % Washout
+        part_2	=   t_start_SE_i+kmeas:kmeas:t_start_PE_i;  % SE
+    else
+        part_0  =   [t_init_i,t_start_wash_i];                  % No DA/ESN
+        part_1	=   [];    % No Washout
+        part_2	=   t_start_wash_i+kmeas:kmeas:t_start_PE_i;      % SE
+    end
+    part_3	=   t_start_PE_i+kmeas:kmeas:t_stop_i;      % SE/SPE/PE
+
+    % ------------------------------------------------------------------- %
+
+    obs_idx     =   [part_0, part_1,part_2,part_3];
+    obs_idx     =   unique(obs_idx);
+
+    % ------------------------------------------------------------------- %
+    Filter.N_A              =   length(obs_idx);
+    [~,Filter.init_SPE_i]	=   min(abs(t_start_SE_i - obs_idx));
+    [~,Filter.init_PE_i]    =   min(abs(t_start_PE_i - obs_idx));
+end

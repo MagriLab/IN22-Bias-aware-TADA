@@ -134,7 +134,7 @@ function fn_plot_results(Filter, ESN_P, Sim_t, Truth, t_KF, Aa_KF, Obs, t_bias, 
     xlabel('$\tilde{t}$ [s]')
     ylabel('BIAS $= \Delta \tilde{p}_\mathrm{mic_1}''$ [Pa]')
 
-    reinit = interp1(t_KF,actual_bias ,Truth.t_mic(Filter.init_SPE_i:end))';
+    reinit = interp1(t_KF,actual_bias,Truth.t_mic(Filter.init_SPE_i:end))';
     plot(Truth.t_mic(Filter.init_SPE_i:end), reinit, 'o',...
         'markersize',6,'MarkerEdgeColor', l2.Color)
     f2=nexttile;hold on %--------------------------------------------------

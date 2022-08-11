@@ -2,8 +2,8 @@ close all; clear all; clc
 addpath(genpath(pwd)); plot_settings(20);fprintf('\n')
 % Select data folder
 folder = 'DATA';
-if ~isfolder(data_folder)
-    mkdir(data_folder); 
+if ~isfolder(folder)
+    mkdir(folder); 
 end
 
 %% ======================== SELECT WORKING MODELS ======================= %

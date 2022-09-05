@@ -1,5 +1,12 @@
 close all; clear all; clc
 addpath(genpath(pwd)); plot_settings(20);fprintf('\n')
+
+% % Uncomment this if you get errors like "Unable to resolve py.module"
+% terminate(pyenv)
+% pyenv('Version', '/usr/bin/python3.8'); % change the second argument to
+% the location of your python executable
+% pyenv("ExecutionMode","OutOfProcess"); % make sure this is the case
+
 % Select data folder
 folder = 'DATA';
 if ~isfolder(folder)

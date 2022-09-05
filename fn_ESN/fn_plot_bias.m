@@ -27,10 +27,8 @@ function [bias, t_bias] = fn_plot_bias(Sim_t, Sim_f, varargin)
 
     if nargin == 3
         filename = varargin{1};
-        if ~isfolder('ESN_bias_data')
-            mkdir('ESN_bias_data')
-        end
-        if ~isfile([filename,'.mat']); save([filename,'.mat'],'bias')
+        if ~isfile([filename,'.mat']); 
+            save([filename,'.mat'],'bias')
         %else; fprintf('\nData not saved. filename already exists\n')
         end
     end

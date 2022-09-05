@@ -1,12 +1,12 @@
 function fn_plot_results(Filter, ESN_P, Sim_t, Truth, t_KF, Aa_KF, Obs, t_bias, bias, t_o, U_o, varargin)
-    try folder = ['Figures\', varargin{1},'\'];
-    catch; folder = 'Figures\';
+    try folder = ['Figures/', varargin{1},'/'];
+    catch; folder = 'Figures/';
     end
 
-    if ~isfolder(folder); mkdir(folder); end
     prompt = "\n Do you want to save the figures? Y/N [N]: ";
     saving = upper(input(prompt,"s"));
     if saving == 'Y'
+        if ~isfolder(folder); mkdir(folder); end
         saving = true;
         prename = 'Matlab_';
         if Filter.E_State; prename(end+1) = 'S'; end

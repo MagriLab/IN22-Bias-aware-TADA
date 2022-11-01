@@ -16,3 +16,4 @@ MATLAB 2022a with
 ---------------------------------------------------------
 
 [1] Nóvoa, A., Racca, A. & Magri, L. 2022. Bias-aware thermoacoustic data assimilation. In 51st International Congress and Exposition on Noise Control Engineering—Internoise 2022.
+link to paper: https://az659834.vo.msecnd.net/eventsairwesteuprod/production-inconference-public/808b4f8c38f944d188db8a326a98c65c
